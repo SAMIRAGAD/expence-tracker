@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Трекер расходов</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>💰 Мой бюджет</h1>
+        
+        <!-- Горизонтальная сводка -->
+        <div class="summary">
+            <div class="summary-card today">
+                <div class="summary-icon">📅</div>
+                <div class="summary-label">Сегодня</div>
+                <div class="summary-amount">{{ daily_total }} ₽</div>
+                <div class="summary-count">{{ today_count }} расходов</div>
+            </div>
+            
+            <div class="summary-card week">
+                <div class="summary-icon">📆</div>
+                <div class="summary-label">Эта неделя</div>
+                <div class="summary-amount">{{ weekly_total }} ₽</div>
+                <div class="summary-count">{{ week_count }} расходов</div>
+            </div>
+            
+            <div class="summary-card month">
+                <div class="summary-icon">🗓️</div>
+                <div class="summary-label">Этот месяц</div>
+                <div class="summary-amount">{{ monthly_total }} ₽</div>
+                <div class="budget-bar">
+                    <div class="budget-progress" style="width: {{ budget_percent }}%"></div>
+                </div>
+                <div class="summary-count">{{ monthly_total }} / {{ budget }} ₽ ({{ budget_percent }}%)</div>
+            </div>
+        </div>
+
+        <!-- Форма установки бюджета -->
+        <form action="/set_budget" method="POST" class="budget-form">
+            <h2>⚙️ Установить бюджет на месяц</h2>
+            <div class="budget-input-group">
+                <input type="number" name="budget" value="{{ budget }}" step="100" min="0" required>
+                <button type="submit">Сохранить</button>
+            </div>
+        </form>
+
+        <!-- Форма добавления расхода -->
+        <form action="/add" method="POST" class="add-form">
+            <h2>➕ Добавить расход</h2>
+            <input type="number" name="amount" placeholder="Сумма (например, 250)" step="0.01" required>
+            <select name="category" required>
+                <option value="Еда">🍔 Еда</option>
+                <option value="Транспорт">🚗 Транспорт</option>
+                <option value="Развлечения">🎬 Развлечения</option>
+                <option value="Учёба">📚 Учёба</option>
+                <option value="Здоровье">🏥 Здоровье</option>
+                <option value="Другое">📦 Другое</option>
+            </select>
+            <input type="text" name="description" placeholder="Описание (например, Кофе)" required>
+            <input type="date" name="date" value="{{ now_date }}" required>
+            <input type="time" name="time" value="{{ now_time }}" required>
+            <button type="submit">Добавить</button>
+        </form>
+
+        <!-- Список расходов по дням -->
+        <div class="expenses-list">
+            {% if grouped_expenses %}
+                {% for date, expenses in grouped_expenses.items() %}
+                <div class="day-block">
+                    <h2>📅 {{ date }} — {{ daily_totals[date] }} ₽</h2>
+                    <div class="expenses">
+                        {% for expense in expenses %}
+                        <div class="expense-item">
+                            <span class="time">{{ expense.time }}</span>
+                            <span class="category">{{ expense.category }}</span>
+                            <span class="description">{{ expense.description }}</span>
+                            <span class="amount">{{ expense.amount }} ₽</span>
+                            <a href="/delete/{{ expense.id }}" class="delete-btn" onclick="return confirm('Удалить этот расход?')">🗑️</a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="empty-message">Пока нет расходов. Добавь первый! ☝️</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

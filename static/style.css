@@ -1,0 +1,306 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+h1 {
+    text-align: center;
+    color: #667eea;
+    margin-bottom: 25px;
+    font-size: 2em;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* ===== ГОРИЗОНТАЛЬНАЯ СВОДКА ===== */
+.summary {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.summary-card {
+    flex: 1;
+    min-width: 200px;
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+    border-top: 4px solid;
+}
+
+.summary-card:hover {
+    transform: translateY(-5px);
+}
+
+.summary-card.today {
+    border-top-color: #4CAF50;
+}
+
+.summary-card.week {
+    border-top-color: #FF9800;
+}
+
+.summary-card.month {
+    border-top-color: #2196F3;
+}
+
+.summary-icon {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.summary-label {
+    font-size: 0.9em;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.summary-amount {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.summary-count {
+    font-size: 0.85em;
+    color: #888;
+}
+
+.budget-bar {
+    width: 100%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.budget-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #FF9800, #f44336);
+    transition: width 0.5s;
+}
+
+/* ===== ФОРМА БЮДЖЕТА ===== */
+.budget-form {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    color: white;
+}
+
+.budget-form h2 {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: white;
+}
+
+.budget-input-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.budget-input-group input {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 8px;
+    font-size: 1.1em;
+    background: rgba(255,255,255,0.9);
+}
+
+.budget-input-group input:focus {
+    outline: none;
+    border-color: white;
+    background: white;
+}
+
+.budget-input-group button {
+    padding: 12px 25px;
+    background: white;
+    color: #667eea;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.budget-input-group button:hover {
+    background: #f0f0f0;
+    transform: scale(1.05);
+}
+
+/* ===== ФОРМА ДОБАВЛЕНИЯ ===== */
+.add-form {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.add-form h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.add-form input,
+.add-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.add-form input:focus,
+.add-form select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.add-form button {
+    width: 100%;
+    padding: 12px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.add-form button:hover {
+    background: #5568d3;
+}
+
+/* ===== СПИСОК РАСХОДОВ ПО ДНЯМ ===== */
+.day-block {
+    margin-bottom: 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.day-block h2 {
+    background: #667eea;
+    color: white;
+    padding: 15px;
+    font-size: 1.1em;
+}
+
+.expenses {
+    padding: 10px;
+}
+
+.expense-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.expense-item:last-child {
+    border-bottom: none;
+}
+
+.expense-item .time {
+    width: 60px;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.expense-item .category {
+    width: 120px;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.expense-item .description {
+    flex: 1;
+    color: #333;
+}
+
+.expense-item .amount {
+    width: 80px;
+    text-align: right;
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+.expense-item .delete-btn {
+    margin-left: 10px;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+.expense-item .delete-btn:hover {
+    opacity: 0.7;
+}
+
+.empty-message {
+    text-align: center;
+    color: #999;
+    font-size: 1.2em;
+    padding: 40px;
+}
+
+/* ===== АДАПТИВНОСТЬ ДЛЯ ТЕЛЕФОНОВ ===== */
+@media (max-width: 768px) {
+    .summary {
+        flex-direction: column;
+    }
+    
+    .summary-card {
+        min-width: 100%;
+    }
+    
+    .expense-item {
+        flex-wrap: wrap;
+    }
+    
+    .expense-item .category {
+        width: 100%;
+        margin-top: 5px;
+    }
+    
+    .budget-input-group {
+        flex-direction: column;
+    }
+    
+    .budget-input-group button {
+        width: 100%;
+    }
+}
